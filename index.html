@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Rate Limiter</title>
+</head>
+<body>
+    <h1>Hit api</h1>
+    <button id="api1">API 1</button>
+    <button id="api2">API 2</button>
+    <button id="api3">API 3</button>
+
+    <p id="output"></p>
+</body>
+<script>
+    const output = document.getElementById('output');
+    const API1 = document.getElementById('api1');
+    const API2 = document.getElementById('api2');
+    const API3 = document.getElementById('api3');
+
+    API1.addEventListener('click', () => hitApi(1));
+    API2.addEventListener('click', () => hitApi(2));
+    API3.addEventListener('click', () => hitApi(3));
+
+    async function hitApi(id) {
+        const res = await fetch(`http://127.0.0.1:5000/api/${id}`, {
+            method: 'POST',
+        }).then(resp => resp.json());
+
+        output.innerText += JSON.stringify(res) + '\n';
+    }
+</script>
+</html>
